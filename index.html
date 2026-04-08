@@ -69,25 +69,49 @@
   .progress-track { height: 3px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--green-bright)); border-radius: 2px; transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
 
+  /* MOTIVATIONAL QUOTE */
+  .quote-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius); padding: 18px 20px;
+    margin-bottom: 1.75rem; position: relative; overflow: hidden;
+    cursor: pointer; transition: border-color 0.3s;
+  }
+  .quote-card:hover { border-left-color: var(--green); }
+  .quote-card::before {
+    content: '"'; position: absolute; top: -10px; right: 16px;
+    font-size: 80px; color: rgba(127,119,221,0.08); font-family: Georgia, serif;
+    line-height: 1; pointer-events: none;
+  }
+  .quote-text {
+    font-size: 14px; font-style: italic; color: var(--text2);
+    line-height: 1.7; margin-bottom: 8px;
+    transition: opacity 0.4s;
+  }
+  .quote-author {
+    font-size: 11px; font-family: var(--mono); color: var(--text3);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .quote-hint { font-size: 10px; color: var(--text3); margin-top: 6px; }
+
   /* CONSISTENCY METRICS */
   .metrics-section { margin-bottom: 1.75rem; }
   .section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; color: var(--text3); text-transform: uppercase; margin-bottom: 10px; }
   .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .metric-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
-  .metric-card-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
-  .metric-habit-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-  .metric-habit-row:last-child { margin-bottom: 0; }
-  .metric-icon { font-size: 14px; width: 20px; text-align: center; flex-shrink: 0; }
+  .metric-card-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  .metric-habit-row { display: flex; align-items: center; gap: 8px; }
+  .metric-icon { font-size: 16px; width: 22px; text-align: center; flex-shrink: 0; }
   .metric-info { flex: 1; min-width: 0; }
-  .metric-name { font-size: 12px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .metric-bar-wrap { height: 3px; background: var(--surface2); border-radius: 2px; margin-top: 3px; }
-  .metric-bar { height: 3px; border-radius: 2px; transition: width 0.4s; }
+  .metric-name { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
+  .metric-detail { font-size: 11px; color: var(--text3); margin-bottom: 5px; }
+  .metric-bar-wrap { height: 4px; background: var(--surface2); border-radius: 2px; }
+  .metric-bar { height: 4px; border-radius: 2px; transition: width 0.5s; }
   .metric-bar.high { background: var(--green-bright); }
-  .metric-bar.low { background: var(--red); }
-  .metric-pct { font-size: 11px; font-family: var(--mono); font-weight: 500; flex-shrink: 0; }
+  .metric-bar.low { background: var(--amber); }
+  .metric-pct { font-size: 13px; font-family: var(--mono); font-weight: 500; flex-shrink: 0; }
   .metric-pct.high { color: var(--green-bright); }
-  .metric-pct.low { color: var(--red); }
-  .freq-badge { font-size: 9px; font-family: var(--mono); padding: 2px 6px; border-radius: 4px; background: var(--accent-dim); color: var(--accent); flex-shrink: 0; }
+  .metric-pct.low { color: var(--amber); }
 
   /* HABITS LIST */
   .habits-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.25rem; }
@@ -114,7 +138,6 @@
   .dot.today { border-color: var(--accent); }
   .dot.today.done { border-color: var(--green); }
   .dot.future { opacity: 0.3; pointer-events: none; }
-  .dot.not-scheduled { opacity: 0.15; pointer-events: none; background: var(--surface2); }
 
   .del-btn { background: none; border: none; cursor: pointer; color: var(--text3); font-size: 18px; line-height: 1; padding: 2px 4px; border-radius: 4px; flex-shrink: 0; transition: color 0.15s, background 0.15s; }
   .del-btn:hover { color: var(--red); background: rgba(226,75,74,0.1); }
@@ -136,6 +159,22 @@
   .freq-label { font-size: 12px; color: var(--text2); white-space: nowrap; }
   .add-btn { background: var(--green-dim); border: 0.5px solid rgba(29,158,117,0.3); color: var(--green-bright); border-radius: var(--radius-sm); padding: 8px 16px; font-family: var(--font); font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
   .add-btn:hover { background: rgba(29,158,117,0.25); border-color: var(--green); }
+
+  /* CUSTOM MODAL */
+  .modal-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; padding: 1.5rem; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal-box { background: var(--surface); border: 0.5px solid var(--border2); border-radius: var(--radius); padding: 2rem; max-width: 380px; width: 100%; text-align: center; transform: scale(0.95); transition: transform 0.2s; }
+  .modal-overlay.open .modal-box { transform: scale(1); }
+  .modal-emoji { font-size: 40px; margin-bottom: 1rem; }
+  .modal-title { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+  .modal-msg { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 1.5rem; }
+  .modal-streak { font-size: 13px; color: var(--green); font-weight: 500; margin-bottom: 1.5rem; }
+  .modal-btns { display: flex; gap: 10px; }
+  .modal-btn { flex: 1; padding: 10px; border-radius: var(--radius-sm); font-family: var(--font); font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; border: 0.5px solid var(--border2); }
+  .modal-btn.cancel { background: var(--green-dim); color: var(--green-bright); border-color: rgba(29,158,117,0.3); }
+  .modal-btn.cancel:hover { background: rgba(29,158,117,0.25); }
+  .modal-btn.confirm { background: rgba(226,75,74,0.1); color: var(--red); border-color: rgba(226,75,74,0.2); }
+  .modal-btn.confirm:hover { background: rgba(226,75,74,0.2); }
 
   /* LOADING */
   #loading-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1rem; }
@@ -218,23 +257,30 @@
       <div class="progress-track"><div class="progress-fill" id="prog-bar" style="width:0%"></div></div>
     </div>
 
-    <!-- MÉTRICAS DE CONSISTENCIA -->
+    <div class="section-label">Hábitos</div>
+    <div class="habits-list" id="habits-list"></div>
+
+    <!-- MOTIVATIONAL QUOTE -->
+    <div class="quote-card" onclick="nextQuote()" id="quote-card" style="display:none;">
+      <div class="quote-text" id="quote-text"></div>
+      <div class="quote-author" id="quote-author"></div>
+      <div class="quote-hint">Toca para cambiar la frase</div>
+    </div>
+
+    <!-- CONSISTENCY METRICS -->
     <div class="metrics-section" id="metrics-section" style="display:none;">
       <div class="section-label">Consistencia del mes</div>
       <div class="metrics-grid">
         <div class="metric-card">
-          <div class="metric-card-label">Más constantes</div>
-          <div id="top-habits"></div>
+          <div class="metric-card-label">Más constante</div>
+          <div id="top-habit"></div>
         </div>
         <div class="metric-card">
-          <div class="metric-card-label">Menos constantes</div>
-          <div id="low-habits"></div>
+          <div class="metric-card-label">Necesita atención</div>
+          <div id="low-habit"></div>
         </div>
       </div>
     </div>
-
-    <div class="section-label">Hábitos</div>
-    <div class="habits-list" id="habits-list"></div>
 
     <div class="add-form">
       <div class="add-form-label">Agregar hábito</div>
@@ -252,6 +298,20 @@
         <span class="freq-label" id="freq-label" style="display:none;"></span>
         <button class="add-btn" onclick="addHabit()">Agregar</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="modal-overlay" id="delete-modal">
+  <div class="modal-box">
+    <div class="modal-emoji">💪</div>
+    <div class="modal-title" id="modal-title">¿Abandonar este hábito?</div>
+    <div class="modal-msg" id="modal-msg"></div>
+    <div class="modal-streak" id="modal-streak"></div>
+    <div class="modal-btns">
+      <button class="modal-btn cancel" onclick="closeDeleteModal()">Seguir adelante</button>
+      <button class="modal-btn confirm" id="modal-confirm-btn">Eliminar</button>
     </div>
   </div>
 </div>
@@ -288,6 +348,52 @@ let habits = {};
 let logs = {};
 let uid = null;
 let unsubHabits = null, unsubLogs = null;
+let pendingDeleteId = null;
+
+// ── QUOTES ──
+const QUOTES = [
+  { text: "No tienes que ser grande para empezar, pero tienes que empezar para ser grande.", author: "Zig Ziglar" },
+  { text: "La disciplina es el puente entre las metas y los logros.", author: "Jim Rohn" },
+  { text: "Somos lo que hacemos repetidamente. La excelencia, entonces, no es un acto sino un hábito.", author: "Aristóteles" },
+  { text: "El secreto de salir adelante es comenzar.", author: "Mark Twain" },
+  { text: "Cada día es una nueva oportunidad para cambiar tu vida.", author: "Anónimo" },
+  { text: "No busques el momento perfecto. Toma el momento y hazlo perfecto.", author: "Anónimo" },
+  { text: "Los hábitos son las cadenas que o te atan o te liberan.", author: "Og Mandino" },
+  { text: "Un día a la vez. No tienes que hacer todo hoy, solo el próximo paso.", author: "Anónimo" },
+  { text: "La motivación te arranca. El hábito te mantiene en movimiento.", author: "Jim Ryun" },
+  { text: "Las personas exitosas forman el hábito de hacer lo que a los que fracasan no les gusta hacer.", author: "E.M. Gray" },
+  { text: "El futuro depende de lo que hagas hoy.", author: "Mahatma Gandhi" },
+  { text: "Pequeñas acciones diarias sumadas crean resultados extraordinarios.", author: "Anónimo" },
+  { text: "Tu única competencia eres tú mismo de ayer.", author: "Anónimo" },
+  { text: "Cada vez que cumples un hábito, le estás demostrando a tu mente quién manda.", author: "James Clear" },
+  { text: "No necesitas más tiempo. Necesitas decidir.", author: "Seth Godin" },
+  { text: "El dolor de la disciplina pesa onzas. El dolor del arrepentimiento pesa toneladas.", author: "Jim Rohn" },
+  { text: "Haz hoy lo que otros no quieren hacer y mañana tendrás lo que otros no pueden tener.", author: "Anónimo" },
+  { text: "La consistencia supera siempre a la intensidad.", author: "Anónimo" },
+  { text: "No se trata de tener tiempo. Se trata de hacer tiempo.", author: "Anónimo" },
+  { text: "Los grandes resultados requieren grandes ambiciones.", author: "Heráclito" },
+];
+
+let quoteIndex = Math.floor(Math.random() * QUOTES.length);
+
+function showQuote() {
+  const q = QUOTES[quoteIndex];
+  const textEl = document.getElementById('quote-text');
+  textEl.style.opacity = '0';
+  setTimeout(() => {
+    textEl.textContent = `"${q.text}"`;
+    document.getElementById('quote-author').textContent = `— ${q.author}`;
+    textEl.style.opacity = '1';
+  }, 200);
+}
+
+window.nextQuote = () => {
+  quoteIndex = (quoteIndex + 1) % QUOTES.length;
+  showQuote();
+};
+
+// Auto-rotate every 30 seconds
+setInterval(() => { quoteIndex = (quoteIndex + 1) % QUOTES.length; showQuote(); }, 30000);
 
 // ── FREQ UI ──
 window.updateFreqUI = () => {
@@ -366,68 +472,77 @@ function calcStreak(hid) {
   return streak;
 }
 
-// ── FREQUENCY LOGIC ──
-// For a habit, get how many times it should be done in the current month
 function getFreqLabel(h) {
   if (!h.freqType || h.freqType === 'daily') return 'Diario';
   if (h.freqType === 'weekly') return `${h.freqCount}x semana`;
   return `${h.freqCount}x mes`;
 }
 
-// Days in current month where habit was logged
 function getMonthLogs(hid) {
-  const now = new Date(TODAY);
-  const year = now.getFullYear();
-  const month = now.getMonth();
+  const year = TODAY.getFullYear(), month = TODAY.getMonth();
   let count = 0;
   Object.keys(logs).forEach(k => {
     const d = new Date(k);
-    if (d.getFullYear()===year && d.getMonth()===month && logs[k][hid]) count++;
+    if (d.getFullYear()===year && d.getMonth()===month && logs[k] && logs[k][hid]) count++;
   });
   return count;
 }
 
-// Expected completions so far this month (up to today)
-function getExpectedSoFar(h) {
-  const now = new Date(TODAY);
-  const dayOfMonth = now.getDate();
-  const daysInMonth = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
-
-  if (!h.freqType || h.freqType === 'daily') {
-    return dayOfMonth;
-  }
-  if (h.freqType === 'weekly') {
-    // weeks elapsed * freqCount (approx)
-    const weeksElapsed = dayOfMonth / 7;
-    return Math.round(weeksElapsed * (h.freqCount||1));
-  }
-  // monthly: proportion of month elapsed * total
-  return Math.round((dayOfMonth / daysInMonth) * (h.freqCount||1));
-}
-
-// Total expected for full month
 function getMonthlyTarget(h) {
-  const now = new Date(TODAY);
-  const daysInMonth = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+  const daysInMonth = new Date(TODAY.getFullYear(), TODAY.getMonth()+1, 0).getDate();
   if (!h.freqType || h.freqType === 'daily') return daysInMonth;
   if (h.freqType === 'weekly') return Math.round((daysInMonth/7) * (h.freqCount||1));
   return h.freqCount || 1;
 }
 
-// Consistency % for month
+function getExpectedSoFar(h) {
+  const dayOfMonth = TODAY.getDate();
+  const daysInMonth = new Date(TODAY.getFullYear(), TODAY.getMonth()+1, 0).getDate();
+  if (!h.freqType || h.freqType === 'daily') return dayOfMonth;
+  if (h.freqType === 'weekly') return Math.max(1, Math.round((dayOfMonth/7) * (h.freqCount||1)));
+  return Math.max(1, Math.round((dayOfMonth/daysInMonth) * (h.freqCount||1)));
+}
+
+// Consistency: ratio of done vs expected so far, only if expected > 0
 function getConsistency(hid, h) {
   const done = getMonthLogs(hid);
   const expected = getExpectedSoFar(h);
-  if (expected === 0) return 100;
+  if (expected === 0) return done > 0 ? 100 : 0;
   return Math.min(100, Math.round((done / expected) * 100));
 }
 
-// Is today a "scheduled" day for weekly/monthly habits?
-// For simplicity: daily = always, weekly/monthly = any day is allowed (user picks)
-function isScheduledDay(h, date) {
-  if (!h.freqType || h.freqType === 'daily') return true;
-  return true; // user marks freely within the week/month
-}
+// ── DELETE MODAL ──
+window.deleteHabit = (hid) => {
+  const h = habits[hid];
+  if (!h) return;
+  pendingDeleteId = hid;
+  const streak = calcStreak(hid);
+  const done = getMonthLogs(hid);
+  const target = getMonthlyTarget(h);
+
+  document.getElementById('modal-title').textContent = `¿Abandonar "${h.name}"?`;
+  document.getElementById('modal-msg').textContent =
+    `Los hábitos toman tiempo en construirse. Este mes completaste ${done} de ${target} veces. Eliminar este hábito borrará todo tu historial para siempre.`;
+  document.getElementById('modal-streak').textContent =
+    streak > 0 ? `🔥 Tienes una racha de ${streak} día${streak!==1?'s':''} — ¡no la pierdas!` : '';
+
+  document.getElementById('delete-modal').classList.add('open');
+};
+
+window.closeDeleteModal = () => {
+  document.getElementById('delete-modal').classList.remove('open');
+  pendingDeleteId = null;
+};
+
+document.getElementById('modal-confirm-btn').addEventListener('click', () => {
+  if (!pendingDeleteId) return;
+  remove(ref(db, `users/${uid}/habits/${pendingDeleteId}`));
+  closeDeleteModal();
+});
+
+document.getElementById('delete-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('delete-modal')) window.closeDeleteModal();
+});
 
 // ── ACTIONS ──
 window.toggle = (hid, dateStr) => {
@@ -450,18 +565,13 @@ window.addHabit = () => {
   window.updateFreqUI();
 };
 
-window.deleteHabit = (hid) => {
-  if (!confirm('¿Eliminar este hábito y su historial?')) return;
-  remove(ref(db, `users/${uid}/habits/${hid}`));
-};
-
 window.changeWeek = (dir) => { weekOffset += dir; render(); };
 
 // ── RENDER ──
 function render() {
   const week = getWeekDates(weekOffset);
   const todayKey = dateKey(TODAY);
-  const now = new Date(TODAY);
+  const habitList = Object.entries(habits);
 
   // Header
   document.getElementById('today-pill').textContent =
@@ -472,8 +582,6 @@ function render() {
         ? `${a.getDate()}–${b.getDate()} ${MONTH_FULL[a.getMonth()]}`
         : `${a.getDate()} ${MONTHS[a.getMonth()]} – ${b.getDate()} ${MONTHS[b.getMonth()]}`);
 
-  const habitList = Object.entries(habits);
-
   // Stats
   const todayDone = habitList.filter(([hid])=>isDone(hid,TODAY)).length;
   document.getElementById('stat-today').textContent = todayDone;
@@ -483,7 +591,6 @@ function render() {
   habitList.forEach(([hid])=>{ const s=calcStreak(hid); if(s>maxStreak) maxStreak=s; });
   document.getElementById('stat-streak').textContent = maxStreak;
 
-  // Month cumplimiento general
   const totalExpected = habitList.reduce((sum,[,h])=>sum+getExpectedSoFar(h),0);
   const totalDone = habitList.reduce((sum,[hid])=>sum+getMonthLogs(hid),0);
   const monthPct = totalExpected>0 ? Math.min(100,Math.round(totalDone/totalExpected*100)) : 0;
@@ -492,35 +599,57 @@ function render() {
   document.getElementById('prog-pct').textContent = monthPct+'%';
   document.getElementById('prog-bar').style.width = monthPct+'%';
 
-  // Métricas de consistencia
+  // Quote
+  if (habitList.length > 0) {
+    document.getElementById('quote-card').style.display = 'block';
+    showQuote();
+  }
+
+  // Metrics — only show if 2+ habits, pick the single best and single worst
   if (habitList.length >= 2) {
     document.getElementById('metrics-section').style.display = 'block';
-    const withConsistency = habitList.map(([hid,h])=>({
-      hid, h, pct: getConsistency(hid,h)
-    })).sort((a,b)=>b.pct-a.pct);
 
-    const top = withConsistency.slice(0,3);
-    const low = [...withConsistency].reverse().slice(0,3);
+    // Only rank habits that have at least 1 expected completion so far
+    const ranked = habitList
+      .map(([hid,h]) => ({
+        hid, h,
+        done: getMonthLogs(hid),
+        expected: getExpectedSoFar(h),
+        target: getMonthlyTarget(h),
+        pct: getConsistency(hid,h)
+      }))
+      .filter(x => x.expected > 0)
+      .sort((a,b) => b.pct - a.pct);
 
-    document.getElementById('top-habits').innerHTML = top.map(({h,pct})=>`
-      <div class="metric-habit-row">
-        <div class="metric-icon">${h.icon||'🎯'}</div>
-        <div class="metric-info">
-          <div class="metric-name">${h.name}</div>
-          <div class="metric-bar-wrap"><div class="metric-bar high" style="width:${pct}%"></div></div>
-        </div>
-        <div class="metric-pct high">${pct}%</div>
-      </div>`).join('');
+    if (ranked.length >= 1) {
+      const top = ranked[0];
+      document.getElementById('top-habit').innerHTML = `
+        <div class="metric-habit-row">
+          <div class="metric-icon">${top.h.icon||'🎯'}</div>
+          <div class="metric-info">
+            <div class="metric-name">${top.h.name}</div>
+            <div class="metric-detail">${top.done} de ${top.target} completados este mes</div>
+            <div class="metric-bar-wrap"><div class="metric-bar high" style="width:${top.pct}%"></div></div>
+          </div>
+          <div class="metric-pct high">${top.pct}%</div>
+        </div>`;
+    }
 
-    document.getElementById('low-habits').innerHTML = low.map(({h,pct})=>`
-      <div class="metric-habit-row">
-        <div class="metric-icon">${h.icon||'🎯'}</div>
-        <div class="metric-info">
-          <div class="metric-name">${h.name}</div>
-          <div class="metric-bar-wrap"><div class="metric-bar low" style="width:${pct}%"></div></div>
-        </div>
-        <div class="metric-pct low">${pct}%</div>
-      </div>`).join('');
+    if (ranked.length >= 2) {
+      const low = ranked[ranked.length - 1];
+      document.getElementById('low-habit').innerHTML = `
+        <div class="metric-habit-row">
+          <div class="metric-icon">${low.h.icon||'🎯'}</div>
+          <div class="metric-info">
+            <div class="metric-name">${low.h.name}</div>
+            <div class="metric-detail">${low.done} de ${low.target} completados este mes</div>
+            <div class="metric-bar-wrap"><div class="metric-bar low" style="width:${low.pct}%"></div></div>
+          </div>
+          <div class="metric-pct low">${low.pct}%</div>
+        </div>`;
+    } else {
+      document.getElementById('low-habit').innerHTML = '<div style="font-size:12px;color:var(--text3);">Agrega más hábitos para ver comparativas.</div>';
+    }
   } else {
     document.getElementById('metrics-section').style.display = 'none';
   }
@@ -536,9 +665,9 @@ function render() {
   habitList.forEach(([hid,h])=>{
     const streak = calcStreak(hid);
     const freqLabel = getFreqLabel(h);
-    const consistency = getConsistency(hid,h);
     const monthDone = getMonthLogs(hid);
     const monthTarget = getMonthlyTarget(h);
+    const consistency = getConsistency(hid,h);
 
     let progressClass = 'ok', progressText = 'Al día';
     if (consistency < 50) { progressClass='behind'; progressText='Atrasado'; }
@@ -567,7 +696,7 @@ function render() {
             ${streak>0?`🔥 ${streak} día${streak!==1?'s':''}`:'Sin racha'}
           </span>
           <span class="habit-freq-tag">${freqLabel}</span>
-          <span class="habit-progress-tag ${progressClass}">${monthDone}/${monthTarget} este mes · ${progressText}</span>
+          <span class="habit-progress-tag ${progressClass}">${monthDone}/${monthTarget} · ${progressText}</span>
         </div>
       </div>
       <div class="week-dots">${dotsHTML}</div>
